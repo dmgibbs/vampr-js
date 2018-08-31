@@ -1,4 +1,26 @@
 
+function createParentList(vampire){
+
+  let list = [];
+  while (vampire){
+    list.push(vampire);
+    vampire = vampire.creator;
+  }
+  return list;
+}
+
+
+function findAncestor(item, vampireList)
+{
+  if (vampireList.includes(item)){
+    return item;
+  }  else  {
+       return findAncestor(item.creator,vampireList);
+      }
+}
+
+
+
 class Vampire {
   constructor(name, yearConverted) {
     this.name = name;
@@ -59,6 +81,8 @@ class Vampire {
     else return false;
   }
 
+
+  
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
@@ -67,38 +91,17 @@ class Vampire {
   // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
   // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
   closestCommonAncestor(vampire) {
-
+    console.log(" current vamp is : ", vampire);
+    console.log("This is the vampire list: ", createParentList(vampire));
+    let vampireList = createParentList(vampire);
+    let parent = findAncestor(this,vampireList);
+    console.log("Found parent to be : ", parent);
+    return parent;
     
-// Check if either is ROOT Vampire
-    if (this.numberOfVampiresFromOriginal === 0
-      && vampire.numberOfVampiresFromOriginal > 0)
-        return this;
-     else if (this.numberOfVampiresFromOriginal > 0
-      && vampire.numberOfVampiresFromOriginal ===0)
-        return vampire;
-
-// test for same vampire
-    else if (this.isSameVampire(vampire)) {
-      return this;    
-    }
-// if vamp is closer to root and level 
-    else if (this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal &&
-      this.numberOfVampiresFromOriginal >=2)
-      return this;
-    else return vampire;
-
-    // else if (this.numberOfVampiresFromOriginal >=1  && 
-    //   ){
-    //   return vampire;
-        
-    //  }
-    // else if (this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal &&
-    //   this.creator.numberOfVampiresFromOriginal ===0  )
-    //   return this.creator;
-    // else if (this.numberOfVampiresFromOriginal > vampire.numberOfVampiresFromOriginal &&
-    //   vampire.creator.numberOfVampiresFromOriginal ===0  )
-    //   return vampire.creator;
-     } // end closest commonAncenstor
   } // end the class
+
+  
+}
+
 
   module.exports = Vampire;
