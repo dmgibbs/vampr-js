@@ -81,9 +81,9 @@ class Vampire {
     else if (this.isSameVampire(vampire)) {
       return this;    
     }
-
+// if vamp is closer to root and level 
     else if (this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal &&
-      this.numberOfVampiresFromOriginal >=1)
+      this.numberOfVampiresFromOriginal >=2)
       return this;
     else return vampire;
 
